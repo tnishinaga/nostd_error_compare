@@ -1,0 +1,2 @@
+# nostd_error_compare
+nostd環境のError設計検討用リポジトリ
