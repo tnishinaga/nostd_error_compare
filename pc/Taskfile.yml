@@ -1,0 +1,14 @@
+
+version: '3'
+
+tasks:
+  manual_error:
+    dir: ./manual/
+    cmds:
+      - cargo size --release
+      - cargo bloat --release --filter 'nostd'
+  snafu_error:
+    dir: ./snafu/
+    cmds:
+      - cargo size --release
+      - cargo bloat --release --filter 'nostd'

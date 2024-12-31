@@ -1,0 +1,34 @@
+
+version: '3'
+
+tasks:
+  run:
+    vars:
+      EXAMPLES: [error_snafu, error_manual]
+    cmds:
+      - for: 
+          var: EXAMPLES
+        cmd: cargo build --release --example "{{ .ITEM }}"
+      - for: 
+          var: EXAMPLES
+        cmd: "qemu-system-arm \
+              -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native \
+              -kernel target/thumbv7m-none-eabi/release/examples/{{ .ITEM }}"
+        
+  size:
+    vars:
+      EXAMPLES: [error_snafu, error_manual]
+    cmds:
+      - for: 
+          var: EXAMPLES
+        cmd: cargo size --release --example "{{ .ITEM }}"
+      - for: 
+          var: EXAMPLES
+        cmd: cargo nm --release --example "{{ .ITEM }}" -- --print-size | sort -k 2 > "{{ .ITEM }}_nm.txt"
+      - cmd: diff -u error_snafu_nm.txt error_manual_nm.txt || true
+      # MEMO: FOR内で複数コマンド実行方法知ってる方は教えて下さい
+      # - for: 
+      #     var: EXAMPLES
+        # cmd:
+        #   - cargo size --release --example "{{ .ITEM }}"
+        #   - cargo bloat --release --example "{{ .ITEM }}"
