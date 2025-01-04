@@ -63,7 +63,10 @@ fn err() -> Result<(), Error> {
 
 #[entry]
 fn main() -> ! {
-    hprintln!("{:?}", err());
+    let err = err();
+    hprintln!("sizeof(err) = {}", core::mem::size_of_val(&err));
+
+    hprintln!("{:?}", err);
 
     debug::exit(debug::EXIT_SUCCESS);
 
