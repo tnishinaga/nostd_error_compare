@@ -4,7 +4,7 @@ version: '3'
 tasks:
   run:
     vars:
-      EXAMPLES: [error_snafu, error_manual]
+      EXAMPLES: [error_snafu, error_snafu_small, error_manual]
     cmds:
       - for: 
           var: EXAMPLES
@@ -17,7 +17,7 @@ tasks:
         
   size:
     vars:
-      EXAMPLES: [error_snafu, error_manual]
+      EXAMPLES: [error_snafu, error_snafu_small, error_manual]
     cmds:
       - for: 
           var: EXAMPLES
