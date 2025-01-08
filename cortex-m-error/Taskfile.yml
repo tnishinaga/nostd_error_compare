@@ -32,3 +32,10 @@ tasks:
         # cmd:
         #   - cargo size --release --example "{{ .ITEM }}"
         #   - cargo bloat --release --example "{{ .ITEM }}"
+  pretty_print:
+    cmds:
+      - cmd: cargo build --release --example error_snafu_pretty_print
+      - cmd: "qemu-system-arm \
+              -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native \
+              -kernel target/thumbv7m-none-eabi/release/examples/error_snafu_pretty_print"
+              

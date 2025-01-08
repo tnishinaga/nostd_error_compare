@@ -14,8 +14,8 @@ use snafu::{prelude::*, GenerateImplicitData, ResultExt};
 #[derive(Debug)]
 pub struct StaticLocationRef(&'static core::panic::Location<'static>);
 
-impl AsRef<&'static core::panic::Location<'static>> for StaticLocationRef {
-    fn as_ref(&self) -> &&'static core::panic::Location<'static> {
+impl AsRef<core::panic::Location<'static>> for StaticLocationRef {
+    fn as_ref(&self) -> &'static core::panic::Location<'static> {
         &self.0
     }
 }
